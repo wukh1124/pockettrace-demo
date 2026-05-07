@@ -1,0 +1,5 @@
+# 1. 主網域：前端 + API (Nuxt)
+http://pockettrace.local {
+	# Nuxt 預設運行在 3000 埠
+	reverse_proxy localhost:3000
+}

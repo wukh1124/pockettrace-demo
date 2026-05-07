@@ -1,0 +1,7 @@
+# Lessons Learned
+
+- **Vertex AI Image Generation**: @google/genai requires outputMimeType and personGeneration: 'DONT_ALLOW' might cause TS errors in newer @google/genai versions. So it was removed. Returned data has imageBytes which is a base64 encoded string, we convert using Buffer.from(data, 'base64').
+- **Vue UI Missing Elements**: Always check `<script setup>` imports when an icon or sub-component fails to render. For example, `lucide-vue-next` icons (`Edit`, `Trash2`) will not render (silently fail) if not explicitly imported, causing buttons using them to appear broken or missing.
+- **SSR Build Error (Import "#app-manifest")**: Encountered `Failed to resolve import "#app-manifest"` followed by missing dependency warnings (`uuid`) during `npm run build`. Fix: First, resolve any missing dependencies via npm install. Second, clear the nuxt cache by running `npx nuxi cleanup`, and only then run `npm run build` again.
+- **iOS 橡皮筋防禦 (Overscroll)**: 如果在全域 (如 `app.vue`) 阻擋 `touchmove` 以防止橡皮筋效果時，若在尋找滾動容器時未涵蓋 `document.scrollingElement` (或 document body)，回傳 null 將導致防禦代碼執行 `e.preventDefault()`，使整個頁面出現完全無法手指滾動的情形 (Scroll Lock)。必須退一步檢查 `scrollingElement.scrollHeight > scroller.clientHeight`，並確認只有在頂部往下或底部往上觸控時，才執行預防處理。
+- **CSS Sticky 定位失效**: 若對父容器設定 `overflow-x-hidden`（特別是在 Tailwind 為 `overflow-x-hidden` 時），會建立一個滾動容器，使得該容器內部子元素的 `position: sticky` 若是以 viewport 視窗作為滾動基準時，會因為容器本身的 `overflow` 屬性而失效。解法：改用 `overflow-x-clip` (`overflow-x: clip;`)，這能防止橫向溢出，又不會破壞 `sticky` 定位機制的運作。

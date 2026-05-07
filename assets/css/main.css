@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* 啟用 class-based dark mode（Tailwind v4 語法）*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===== iOS PWA 優化 ===== */
+
+/* 禁止 iOS Safari / PWA 的橡皮筋（overscroll bounce）效果 */
+html,
+body {
+  overscroll-behavior-y: none !important;
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  /* 預設背景色，防止 PWA 露出白色 */
+  background-color: #ffffff !important;
+}
+
+/* 暗色模式背景色 */
+html.dark, 
+html.dark body {
+  background-color: #020617 !important; /* Slate 950 */
+}
+
+/* 讓 Nuxt 的根容器成為實際的可滾動區域 */
+#__nuxt {
+  overflow-y: scroll;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  width: 100%;
+}
+
+
+/* ===== md-editor-v3 與 Tailwind CSS v4 的相容性修復 ===== */
+
+/* 修復 Tailwind preflight 重置 SVG 導致 md-editor 工具列圖示消失 */
+.md-editor svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 修復 Tailwind 對 button 的 preflight 重置影響 editor 按鈕 */
+.md-editor button {
+  background-color: unset;
+}
+
+/* 確保 md-editor 的 CodeMirror 編輯區域有正確的高度 */
+.md-editor .cm-editor {
+  height: 100%;
+}
+
+/* 確保 md-editor 佔滿容器高度 */
+.md-editor {
+  height: 100% !important;
+}
+
+/* 修復 markdown 預覽區域列表樣式 (Tailwind preflight 移除了 list-style) */
+.md-editor-preview ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+}
+
+.md-editor-preview ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+}
+
+/* 修復 Tailwind 對表格 border 的重置 */
+.md-editor-preview table,
+.md-editor-preview th,
+.md-editor-preview td {
+  border-width: 1px;
+}

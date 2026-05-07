@@ -1,0 +1,47 @@
+# Nuxt dev/build outputs
+.nuxt
+.output
+dist/
+.nitro/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Database (SQLite / Turso Local)
+*.db
+*.sqlite
+*.sqlite3
+*-journal
+*.db-shm
+*.db-wal
+local.db
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Uploads (使用者上傳的圖片)
+public/uploads/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# 遺留檔案與個人開發筆記
+snapshot.txt
+cmd/
